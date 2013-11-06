@@ -2,7 +2,7 @@ require "fisher_classifier/version"
 
 module FisherClassifier
   autoload :Classifier, 'fisher_classifier/classifier'
-  autoload :Config, 'fisher_classifier/Config'
+  autoload :Config, 'fisher_classifier/config'
 
   class << self
     def create(&block)
