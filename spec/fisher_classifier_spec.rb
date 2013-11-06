@@ -37,10 +37,6 @@ describe FisherClassifier do
         @categories[category] || 0
       end
 
-      totalcount do
-        @categories.inject(0) { |sum, tuple| sum += tuple.last }
-      end
-
       features_count do |feature, category|
         @features[category][feature] || 0
       end

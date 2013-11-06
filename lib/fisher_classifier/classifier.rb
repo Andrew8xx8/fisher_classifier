@@ -112,10 +112,6 @@ module FisherClassifier
       @config.call(:category_count, category)
     end
 
-    def totalcount
-      @config.call(:totalcount)
-    end
-
     def features_count(feature, category)
       @config.call(:features_count, feature, category)
     end
