@@ -1,8 +1,9 @@
 # encoding: utf-8
 module FisherClassifier
   class Classifier
+    include FisherClassifier::Meta
 
-    def initialize config
+    def initialize(config)
       @config = config
     end
 
@@ -13,16 +14,17 @@ module FisherClassifier
       end
     end
 
-    def classify(item)
+    def classify(text)
+      features = get_features(text)
       best = default_category
       max = 0.0
 
-      categories.each do |c|
-        p = fisher_prob(item, c)
+      categories.each do |category|
+        prob = fisher_prob(category, features)
 
-        if p > max
-          best = c
-          max = p
+        if prob > max
+          best = category
+          max = prob
         end
       end
 
@@ -31,14 +33,22 @@ module FisherClassifier
 
     private
 
-    def fisher_prob(item, category)
-      features = get_features(item)
+    def fisher_prob(category, features)
+      invchi2(
+        fisher_factor(
+          probs_multiply(features, category)
+        ), features.size * 2
+      )
+    end
+
+    def probs_multiply(features, category)
       fprobs = features.map { |f| weighted_prob(f, category) }
       probs_multiply = fprobs.inject(:*)
+      probs_multiply ||= 0
+    end
 
-      fisher = -2 * Math.log(probs_multiply)
-
-      invchi2(fisher, features.size * 2)
+    def fisher_factor(probs_multiply)
+      -2 * Math.log(probs_multiply)
     end
 
     def feature_prob(feature, category)

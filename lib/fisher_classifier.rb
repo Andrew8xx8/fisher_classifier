@@ -3,6 +3,7 @@ require "fisher_classifier/version"
 module FisherClassifier
   autoload :Classifier, 'fisher_classifier/classifier'
   autoload :Config, 'fisher_classifier/config'
+  autoload :Meta, 'fisher_classifier/meta'
 
   class << self
     def create(&block)
@@ -43,11 +44,19 @@ module FisherClassifier
         end
 
         category_count do |category|
-          @categories[category] || 0
+          if @features.has_key?(category)
+            @categories[category] || 0
+          else
+            0
+          end
         end
 
         features_count do |feature, category|
-          @features[category][feature] || 0
+          if @features.has_key?(category) && @features[category].has_key?(feature)
+            @features[category][feature] || 0
+          else
+            0
+          end
         end
 
         default_category do
