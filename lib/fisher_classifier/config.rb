@@ -5,7 +5,7 @@ module FisherClassifier
       @config = {
         fisher_threshold: 0,
         weight: 1.0,
-        ap: 0.5
+        assumed_prob: 0.5
       }
       @methods = {}
       instance_eval &block

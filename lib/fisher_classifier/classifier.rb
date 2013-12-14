@@ -62,7 +62,7 @@ module FisherClassifier
       current_prob = category_prob(category, feature)
       totals = feature_in_all_categories(feature)
 
-      (weight * ap + totals * current_prob) / ( weight + totals).to_f
+      (weight * assumed_prob + totals * current_prob) / ( weight + totals).to_f
     end
 
     def feature_in_all_categories(feature)
