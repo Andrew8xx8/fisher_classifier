@@ -3,6 +3,7 @@ module FisherClassifier
 
     def initialize(block)
       @config = {
+        fisher_threshold: 0,
         weight: 1.0,
         ap: 0.5
       }
@@ -28,6 +29,10 @@ module FisherClassifier
       else
         @config[key] = value
       end
+    end
+
+    def respond_to_missing?(method_name, include_private = false)
+      @methods.has_key? method_name
     end
 
   end

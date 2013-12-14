@@ -17,7 +17,7 @@ module FisherClassifier
     def classify(text)
       features = get_features(text)
       best = default_category
-      max = 0.0
+      max = fisher_threshold
 
       categories.each do |category|
         prob = fisher_prob(category, features)
