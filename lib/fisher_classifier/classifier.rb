@@ -41,14 +41,14 @@ module FisherClassifier
       )
     end
 
+    def fisher_factor(probs_multiply)
+      -2 * Math.log(probs_multiply)
+    end
+
     def probs_multiply(features, category)
       fprobs = features.map { |f| weighted_prob(f, category) }
       probs_multiply = fprobs.inject(:*)
       probs_multiply ||= 0
-    end
-
-    def fisher_factor(probs_multiply)
-      -2 * Math.log(probs_multiply)
     end
 
     def feature_prob(feature, category)
@@ -59,7 +59,7 @@ module FisherClassifier
     end
 
     def weighted_prob(feature, category)
-      current_prob = category_prob(feature, category)
+      current_prob = category_prob(category, feature)
       totals = feature_in_all_categories(feature)
 
       (weight * ap + totals * current_prob) / ( weight + totals).to_f
@@ -70,7 +70,7 @@ module FisherClassifier
       counts.inject(:+)
     end
 
-    def category_prob(feature, category)
+    def category_prob(category, feature)
       fp = feature_prob(feature, category)
       return fp if fp.zero?
 

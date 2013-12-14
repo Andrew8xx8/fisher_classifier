@@ -40,7 +40,7 @@ module FisherClassifier
       categories.map do |category|
         {
           name: category,
-          category_prob: category_prob(feature, category),
+          category_prob: category_prob(category, feature),
           feature_prob: feature_prob(feature, category),
           weighted_prob: weighted_prob(feature, category),
           freqsum: feature_freqsum(feature, category)
