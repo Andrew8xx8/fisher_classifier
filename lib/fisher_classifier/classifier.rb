@@ -94,44 +94,13 @@ module FisherClassifier
       [sum, 1.0].min
     end
 
-    def default_category
-      @config.call(:default_category)
+    def method_missing(key, *values, &block)
+      if @config.respond_to?(key, values)
+        @config.call key, *values
+      else
+        @config.get(key)
+      end
     end
 
-    def category_threshold(category)
-      @config.call(:category_threshold, category)
-    end
-
-    def weight
-      @config.get(:weight)
-    end
-
-    def ap
-      @config.get(:ap)
-    end
-
-    def get_features(text)
-      @config.call(:get_features, text)
-    end
-
-    def categories
-      @config.call(:categories)
-    end
-
-    def category_count(category)
-      @config.call(:category_count, category)
-    end
-
-    def features_count(feature, category)
-      @config.call(:features_count, feature, category)
-    end
-
-    def inc_feature(feature, category)
-      @config.call :inc_feature, feature, category
-    end
-
-    def inc_category(category)
-      @config.call :inc_category, category
-    end
   end
 end
