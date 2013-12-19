@@ -38,7 +38,7 @@ module FisherClassifier
 
         category_count do |category|
           if @categories.has_key?(category)
-            @categories[category] || 0
+            @categories[category]
           else
             0
           end
@@ -46,7 +46,7 @@ module FisherClassifier
 
         features_count do |feature, category|
           if @features.has_key?(category) && @features[category].has_key?(feature)
-            @features[category][feature] || 0
+            @features[category][feature]
           else
             0
           end
