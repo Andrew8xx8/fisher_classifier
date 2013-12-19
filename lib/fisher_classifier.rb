@@ -19,24 +19,17 @@ module FisherClassifier
 
         inc_feature do |feature, category|
           @features[category] ||= {}
-
-          if @features[category].has_key? feature
-            @features[category][feature] += 1
-          else
-            @features[category][feature] = 1
-          end
+          @features[category][feature] ||= 0
+          @features[category][feature] += 1
         end
 
         inc_category do |category|
-          if @categories.has_key? category
-            @categories[category] += 1
-          else
-            @categories[category] = 1
-          end
+          @categories[category] ||= 0
+          @categories[category] += 1
         end
 
         get_features do |text|
-          text.split(' ')
+          text.split(' ').map { |s| s.downcase }
         end
 
         categories do
@@ -44,7 +37,7 @@ module FisherClassifier
         end
 
         category_count do |category|
-          if @features.has_key?(category)
+          if @categories.has_key?(category)
             @categories[category] || 0
           else
             0
