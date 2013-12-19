@@ -6,7 +6,7 @@
 
 * набор категорий;
 * способ определения признаков;
-* коэффициент для потсчета взвешенной вероятности;
+* коэффициент для подсчета взвешенной вероятности;
 * минимальный порог для определения принадлежности к категории;
 * любое хранилище статистики.
 
@@ -105,7 +105,7 @@
 
 ## Rails (Active Record)
 
-Миграция:
+Миграция (db/migrate/20131106143644_create_classifier_features.rb):
 
 ```ruby
 class CreateClassifierFeatures < ActiveRecord::Migration
@@ -119,7 +119,7 @@ class CreateClassifierFeatures < ActiveRecord::Migration
 end
 ```
 
-Модель:
+Модель (app/models/classifier_feature.rb):
 
 ```ruby
 class ClassifierFeature < ActiveRecord::Base
@@ -134,7 +134,7 @@ end
 
 Инициалайзер:
 
-`examples/classifier_initializer.rb`
+[config/initializers/classifier.rb](https://github.com/Andrew8xx8/fisher_classifier/blob/master/examples/classifier_initializer.rb)
 
 Использование:
 
